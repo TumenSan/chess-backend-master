@@ -1,0 +1,11 @@
+const SocketEventsEnum = {
+    CONNECT: 'CONNECT',
+    CLOSE: 'CLOSE',
+    NEW_GAME: 'NEW_GAME',
+    START_GAME: 'START_GAME',
+    MOVE: 'MOVE',
+    CHAT: 'CHAT',
+    GAME_OVER: 'GAME_OVER',
+}
+
+module.exports = { SocketEventsEnum }
