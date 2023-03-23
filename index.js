@@ -10,11 +10,14 @@ const errorMiddleware = require("./middlewares/errorMiddleware");
 const socketAuthMiddleware = require("./middlewares/socketAuthMiddleware");
 const connectionHandler = require('./sockets/connectionHandler');
 const closeHandler = require('./sockets/closeHandler');
+const MqClass = require("./service/mqservice")
 
 const PORT = process.env.PORT || 5000;
 
 const start = async () => {
   try {
+    MqClass.connectQueue();
+
     const app = express();
     const server = http.createServer(app);
 

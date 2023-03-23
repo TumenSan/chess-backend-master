@@ -12,6 +12,8 @@ router.post(
 router.post("/login", userController.login);
 router.post("/giveup", userController.giveup); //
 router.post("/logout", userController.logout);
+router.post("/sendposition", userController.sendPosition); //
+//router.post("/estimation", userController.estimation); //
 router.get("/refresh", userController.refresh);
 router.get("/users", authMiddleware, userController.getUsers);
 

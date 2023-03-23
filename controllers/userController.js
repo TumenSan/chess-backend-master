@@ -1,6 +1,7 @@
 const userService = require("../service/userService");
 const { validationResult } = require("express-validator");
 const ApiError = require("../exceptions/apiError");
+const MqClass = require("../service/mqservice")
 
 class UserController {
   async registration(req, res, next) {
@@ -60,6 +61,17 @@ class UserController {
       return res.sendStatus(200);
     } catch (e) {
       next(e);
+    }
+  }
+  
+  async sendPosition(req, res) {
+    try {
+      //MqClass.connectQueue; // call connectQueue function
+      MqClass.sendData(req.body)
+      
+      return res.sendStatus(200);
+    } catch (e) {
+      console.log(e);
     }
   }
 
