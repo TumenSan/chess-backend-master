@@ -67,7 +67,8 @@ class UserController {
   async sendPosition(req, res) {
     try {
       //MqClass.connectQueue; // call connectQueue function
-      MqClass.sendData(req.body)
+      await MqClass.startConsume();
+      await MqClass.sendData(req.body);
       
       return res.sendStatus(200);
     } catch (e) {

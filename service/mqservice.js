@@ -1,14 +1,14 @@
 const amqp = require("amqplib");
-var channel, connection;
+var channelProducer, channelConsumer, connection, connection2;
 
 class MqClass {
     async connectQueue() {
         try {
             connection = await amqp.connect("amqp://user1:password1@rabbitmq:5672");
-            channel = await connection.createChannel()
+            channelProducer = await connection.createChannel();
             
-            // connect to 'test-queue', create one if doesnot exist already
-            await channel.assertQueue("test-queue")
+            // connect to 'back-to-engine', create one if doesnot exist already
+            await channelProducer.assertQueue("back-to-engine");
             
         } catch (error) {
             console.log(error)
@@ -18,11 +18,22 @@ class MqClass {
     async sendData (data) {
         console.log(data);
         // send data to queue
-        await channel.sendToQueue("test-queue", Buffer.from(JSON.stringify(data)));
+        await channelProducer.sendToQueue("back-to-engine", Buffer.from(JSON.stringify(data)));
             
         // close the channel and connection
         //await channel.close();
         //await connection.close();
+    }
+
+    async startConsume () {
+        console.log("Start consuming messages...");
+        await channelProducer.consume("back-to-engine", async (msg) => {
+            const data = JSON.parse(msg.content.toString());
+            console.log("Received message: " + msg.content.toString());
+
+            // Подтверждение обработки сообщения
+            await channelProducer.ack(msg);
+        });
     }
 }
 
