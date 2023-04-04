@@ -1,5 +1,5 @@
 const amqp = require("amqplib");
-var channelProducer, channelConsumer, connection, connection2;
+var channelProducer, channelConsumer, connection;
 
 class MqClass {
     async connectQueue() {
