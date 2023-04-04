@@ -6,9 +6,11 @@ class MqClass {
         try {
             connection = await amqp.connect("amqp://user1:password1@rabbitmq:5672");
             channelProducer = await connection.createChannel();
+            channelConsumer = await connection.createChannel();
             
             // connect to 'back-to-engine', create one if doesnot exist already
             await channelProducer.assertQueue("back-to-engine");
+            await channelConsumer.assertQueue("estimation-to-back");
             
         } catch (error) {
             console.log(error)
@@ -27,7 +29,7 @@ class MqClass {
 
     async startConsume () {
         console.log("Start consuming messages...");
-        await channelProducer.consume("back-to-engine", async (msg) => {
+        await channelProducer.consume("estimation-to-back", async (msg) => {
             const data = JSON.parse(msg.content.toString());
             console.log("Received message: " + msg.content.toString());
 
