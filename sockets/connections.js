@@ -40,6 +40,22 @@ class Connections {
 		connection.users[0].userWs.send(JSON.stringify({ type: SocketEventsEnum.START_GAME, side: connection.users[0].side, connectionId: connection.id }));
     return connection;
   }
+  
+  userGiveUpGameEnd(id, userId) {
+	let connection = this.connections[id];
+    
+	if (!connection) {
+		throw new Error('Сессии не существует');
+	}
+
+	const otherUserWs = connection.users.find(u => u.userId !== userId)?.userWs;
+	
+	if(!otherUserWs) {
+		throw new Error('Оппонент не найден');
+	}
+
+	otherUserWs.send(JSON.stringify({ type: SocketEventsEnum.GIVE_UP, userId }));
+  }
 
   removeUserConnection(userId) {
     const connection = Object.values(this.connections).find((c) => c.users.some(u => u.userId === userId));
@@ -61,8 +77,8 @@ class Connections {
 		let connection = this.connections[id];
     
 		if (!connection) {
-        throw new Error('Сессии не существует');
-    }
+			throw new Error('Сессии не существует');
+		}
 
 		const otherUserWs = connection.users.find(u => u.userId !== userId)?.userWs;
 		
@@ -77,7 +93,7 @@ class Connections {
 		otherUserWs.send(JSON.stringify({ type: SocketEventsEnum.CHAT, message, userId }));
 	}
 
-	sendMove(id, userId, start, end) {
+	sendMove(id, userId, figure, figureEnd, start, end) {
 		let connection = this.connections[id];
     
 		if (!connection) {
@@ -90,8 +106,8 @@ class Connections {
 			throw new Error('Оппонент не найден');
 		}
 
-		console.log(start, end);
-		otherUserWs.send(JSON.stringify({ type: SocketEventsEnum.MOVE, start, end }));
+		console.log(figure, figureEnd, start, end);
+		otherUserWs.send(JSON.stringify({ type: SocketEventsEnum.MOVE, figure, figureEnd, start, end }));
 
 	}
 }

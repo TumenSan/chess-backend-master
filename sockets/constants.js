@@ -6,6 +6,7 @@ const SocketEventsEnum = {
     MOVE: 'MOVE',
     CHAT: 'CHAT',
     GAME_OVER: 'GAME_OVER',
+    GIVE_UP: 'GIVE_UP',
 }
 
 module.exports = { SocketEventsEnum }

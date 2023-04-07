@@ -13,7 +13,10 @@ function connectionHandler(ws, data, userId) {
       Connections.exchangeMessage(result.connectionId, userId, result.message);
       break;
     case SocketEventsEnum.MOVE:
-      Connections.sendMove(result.connectionId, userId, result.start, result.end);
+      Connections.sendMove(result.connectionId, userId, result.figure, result.figureEnd, result.start, result.end);
+      break;
+    case SocketEventsEnum.GIVE_UP:
+      Connections.userGiveUpGameEnd(result.connectionId, userId);
       break;
   }
 }
