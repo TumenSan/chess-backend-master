@@ -1,7 +1,7 @@
 const userService = require("../service/userService");
 const { validationResult } = require("express-validator");
 const ApiError = require("../exceptions/apiError");
-const MqClass = require("../service/mqservice")
+const MqClass = require("../service/mqservice");
 
 class UserController {
   async registration(req, res, next) {
@@ -39,19 +39,6 @@ class UserController {
     }
   }
 
-  //
-  async giveup(req, res, next) {
-    try {
-      const { login } = req.body;
-      const userData = await userService.login(login);
-
-      return res.json(userData);
-    } catch (e) {
-      next(e);
-    }
-  }
-  //
-
   async logout(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
@@ -61,18 +48,6 @@ class UserController {
       return res.sendStatus(200);
     } catch (e) {
       next(e);
-    }
-  }
-  
-  async sendPosition(req, res) {
-    try {
-      //MqClass.connectQueue; // call connectQueue function
-      await MqClass.startConsume();
-      await MqClass.sendData(req.body);
-      
-      return res.sendStatus(200);
-    } catch (e) {
-      console.log(e);
     }
   }
 

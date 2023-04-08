@@ -40,22 +40,6 @@ class UserService {
     return { ...tokens, user: userDto };
   }
 
-  //
-  async giveup(login) {
-    const user = await UserModel.findOne({ login });
-    if (!user) {
-      throw ApiError.BadRequest('Пользователь с таким логином не найден');
-    }
-
-    const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens({ ...userDto });
-    
-    await tokenService.saveRefreshToken(userDto.id, tokens.refreshToken);
-
-    return { ...tokens, user: userDto };
-  }
-  //
-
   async logout(refreshToken) {
     const token = await tokenService.removeRefreshToken(refreshToken);
 
