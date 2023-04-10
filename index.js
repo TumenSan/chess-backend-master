@@ -52,7 +52,7 @@ const start = async () => {
       console.log('here', user);
       
       ws.on('message', (data) => {
-        connectionHandler(ws, data, user.id);
+        connectionHandler(ws, data, user.id, user.login);
       });
 
       ws.on('close', (data) => {

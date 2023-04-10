@@ -5,6 +5,7 @@ const GameSchema = new Schema({
     playerBlack: { type: Schema.Types.ObjectId, ref: 'User' },
     playerWhiteLogin: { type: String, required: true },
     playerBlackLogin: { type: String, required: true },
+    gameResult : { type: String, required: true },
     pgn: { type: String, required: true },
 });
 

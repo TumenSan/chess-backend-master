@@ -16,9 +16,22 @@ class GameController {
       }
     }
 
+    async sendGame(req, res) {
+        try {
+          //MqClass.connectQueue; // call connectQueue function
+          await MqClass.startConsume();
+          await MqClass.sendData(req.body);
+          
+          return res.sendStatus(200);
+        } catch (e) {
+          console.log(e);
+        }
+      }
+
     async sendSaveGame(req, res) {
         try {
-            await gameService.saveGame(req.body.playerWhite, req.body.playerBlack, req.body.pgn);
+            await gameService.saveGame(req.body.playerWhite, req.body.playerBlack, 
+                req.body.gameResult, req.body.pgn);
             
             return res.sendStatus(200);
         } catch (e) {

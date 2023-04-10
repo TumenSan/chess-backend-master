@@ -12,8 +12,9 @@ router.post(
 );
 router.post("/login", userController.login);
 router.post("/logout", userController.logout);
-router.post("/savegame", gameController.sendSaveGame) //
-router.get("/games", gameController.getGames) //
+router.post("/savegame", gameController.sendSaveGame); //
+router.post("/sendgame", gameController.sendGame); //
+router.get("/games", gameController.getGames); //
 router.post("/sendposition", gameController.sendPosition); //
 //router.post("/estimation", userController.estimation); //
 router.get("/refresh", userController.refresh);
