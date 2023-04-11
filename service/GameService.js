@@ -20,7 +20,13 @@ class GameService {
     return { game };
   }
 
-  async getAllGames() {
+  async getAllGamesUser(userLogin) {
+    const games = await GameModel.find({ login: userLogin });
+    console.log(games);
+    return games;
+  }
+
+  async getGames() {
     const games = await GameModel.find();
     return games;
   }

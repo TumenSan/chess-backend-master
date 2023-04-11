@@ -1,5 +1,4 @@
 const gameService = require("../service/GameService");
-const { validationResult } = require("express-validator");
 const ApiError = require("../exceptions/apiError");
 const MqClass = require("../service/mqservice");
 
@@ -39,9 +38,19 @@ class GameController {
         }
     }
 
+    async getAllGamesUser(req, res) {
+      try {
+        const games = await gameService.getAllGamesUser(req.body.userLogin);
+        return res.json(games);
+
+      } catch (e) {
+          console.log(e);
+      }
+    }
+
     async getGames(req, res) {
         try {
-            const games = await gameService.getAllGames();
+            const games = await gameService.getGames();
             return res.json(games);
 
         } catch (e) {
