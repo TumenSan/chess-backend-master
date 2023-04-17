@@ -4,7 +4,7 @@ const ApiError = require("../exceptions/apiError");
 const userModel = require("../models/userModel");
 
 class GameService {
-  async saveGame(playerWhite, playerBlack, gameResult, pgn) {
+  async saveGame(playerWhite, playerBlack, gameResult, pgn, date) {
     const PlayerWhite = await userModel.findOne({ login: playerWhite });
     console.log(PlayerWhite);
     const userWhiteId = PlayerWhite._id;
@@ -14,7 +14,7 @@ class GameService {
     const userBlackId = PlayerBlack._id;
     console.log(userBlackId);
     const game = await GameModel.create({ playerWhite: userWhiteId, playerBlack: userBlackId, 
-      playerWhiteLogin: PlayerWhite.login, playerBlackLogin: PlayerBlack.login, gameResult, pgn });
+      playerWhiteLogin: PlayerWhite.login, playerBlackLogin: PlayerBlack.login, gameResult, pgn, date });
     console.log("any game: ", game);
 
     return { game };

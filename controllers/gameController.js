@@ -30,7 +30,7 @@ class GameController {
     async sendSaveGame(req, res) {
         try {
             await gameService.saveGame(req.body.playerWhite, req.body.playerBlack, 
-                req.body.gameResult, req.body.pgn);
+                req.body.gameResult, req.body.pgn, req.body.date);
             
             return res.sendStatus(200);
         } catch (e) {

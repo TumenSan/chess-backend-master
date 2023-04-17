@@ -7,6 +7,7 @@ const GameSchema = new Schema({
     playerBlackLogin: { type: String, required: true },
     gameResult : { type: String, required: true },
     pgn: { type: String, required: true },
+    date: { type: String },
 });
 
 module.exports = model('Game', GameSchema);

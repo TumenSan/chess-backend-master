@@ -64,6 +64,8 @@ class Connections {
 
 	otherUserWs.send(JSON.stringify({ type: SocketEventsEnum.GIVE_UP, userId, userLogin }));
 
+	const dateGame = (new Date()).toDateString();
+
 	let newMoves = connection.moves.map(([figure, capture, start, end]) => {
 		let move;
 		let rowEnd = 8 - Math.floor(end / 8);
@@ -79,6 +81,10 @@ class Connections {
 			if (figure.toLowerCase() === "p"){
 				move = `${endPoint}`;
 			} else move = `${figure.toUpperCase()}${endPoint}`;
+		}
+		if ((figure.toLowerCase() === "k") && ((Math.abs(start - end)) === 2
+		)){
+			move = ((end - start) > 0) ? "0-0" : "0-0-0";
 		}
 		
 		return [move];
@@ -97,10 +103,10 @@ class Connections {
 	console.log(connection.users);
 	let userThatGiveUp = connection.users.find((u) => u.userLogin === userLogin);
 	let gameResult = (userThatGiveUp.side === "w") ? "0-1" : "1-0";
-	
+
 	const game = await GameModel.create({ playerWhite: connection.users[0].userId, 
 		playerBlack: connection.users[1].userId, playerWhiteLogin: connection.users[0].userLogin, 
-		playerBlackLogin: connection.users[1].userLogin, gameResult: gameResult, pgn: notation });
+		playerBlackLogin: connection.users[1].userLogin, gameResult: gameResult, pgn: notation, date: dateGame });
 		
   }
 
