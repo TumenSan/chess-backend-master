@@ -21,7 +21,13 @@ class GameService {
   }
 
   async getAllGamesUser(userLogin) {
-    const games = await GameModel.find({ login: userLogin });
+    console.log(userLogin);
+    const games = await GameModel.find({
+      $or: [
+        { playerWhiteLogin: userLogin },
+        { playerBlackLogin: userLogin }
+      ]
+    }).exec();
     console.log(games);
     return games;
   }
