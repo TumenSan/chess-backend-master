@@ -32,6 +32,13 @@ class GameService {
     return games;
   }
 
+  async getGameUser(idGame) {
+    console.log(idGame);
+    const game = await GameModel.find({_id: idGame}).exec();
+    console.log(game);
+    return game;
+  }
+
   async getGames() {
     const games = await GameModel.find();
     return games;

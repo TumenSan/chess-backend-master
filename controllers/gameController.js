@@ -48,6 +48,16 @@ class GameController {
       }
     }
 
+    async getGameUser(req, res) {
+        try {
+            const games = await gameService.getGameUser(req.body.idGame);
+            return res.json(games);
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     async getGames(req, res) {
         try {
             const games = await gameService.getGames();

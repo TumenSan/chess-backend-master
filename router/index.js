@@ -15,6 +15,7 @@ router.post("/logout", userController.logout);
 router.post("/savegame", gameController.sendSaveGame); //
 router.post("/sendgame", gameController.sendGame); //
 router.post("/getgamesuser", gameController.getAllGamesUser); //
+router.post("/getgame", gameController.getGameUser); //
 router.get("/games", gameController.getGames); //
 router.post("/sendposition", gameController.sendPosition); //
 //router.post("/estimation", userController.estimation); //
