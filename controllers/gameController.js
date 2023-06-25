@@ -6,10 +6,11 @@ class GameController {
     async sendPosition(req, res) {
       try {
         //MqClass.connectQueue; // call connectQueue function
-        await MqClass.startConsume();
+        let game = await MqClass.startConsume();
+        console.log("game: ", game);
         await MqClass.sendData(req.body);
         
-        return res.sendStatus(200);
+        return res.json(game)
       } catch (e) {
         console.log(e);
       }
@@ -18,10 +19,11 @@ class GameController {
     async sendGame(req, res) {
         try {
           //MqClass.connectQueue; // call connectQueue function
-          await MqClass.startConsume();
+          let game = await MqClass.startConsume();
+          console.log("game: ", game);
           await MqClass.sendData(req.body);
           
-          return res.sendStatus(200);
+          return res.json(game)
         } catch (e) {
           console.log(e);
         }

@@ -29,13 +29,15 @@ class MqClass {
 
     async startConsume () {
         console.log("Start consuming messages...");
+        let data;
         await channelProducer.consume("estimation-to-back", async (msg) => {
-            const data = JSON.parse(msg.content.toString());
+            data = JSON.parse(msg.content.toString());
             console.log("Received message: " + msg.content.toString());
 
             // Подтверждение обработки сообщения
             await channelProducer.ack(msg);
         });
+        return data;
     }
 }
 
